@@ -10,3 +10,10 @@ html, body {
   background-color: teal;
   color: white;
 }
+body::-webkit-scrollbar {
+  display: none;
+}
+bodye {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

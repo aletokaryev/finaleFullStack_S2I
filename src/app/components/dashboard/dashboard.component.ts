@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../auth/auth.service';
-import Chart from 'chart.js/auto'
+import Chart from 'chart.js/auto';
 
 import { Router } from '@angular/router';
 
@@ -18,7 +19,7 @@ export class DashboardComponent implements OnInit {
 
   expenses: any[] = [];
   categories: any[] = [];
-  selectedCategory: string = 'Other';
+  selectedCategory: string = '';
   amount: number = 0;
   description: string = 'Description goes here';
 
@@ -26,7 +27,12 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild('pieChart', { static: true }) pieChartRef!: ElementRef;
 
-  constructor(private http: HttpClient, private authService: AuthService, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.fetchExpenses();
@@ -66,11 +72,24 @@ export class DashboardComponent implements OnInit {
   }
 
   addExpense() {
+    // Verifica se l'amount è zero
+    if (this.amount === 0) {
+      this.snackBar.open('Amount cannot be equal to zero.', 'Chiudi', {
+        duration: 3000
+      });
+      return;
+    }
+
+
+
     // Aggiungi una nuova spesa
     const userId = this.authService.getUserId();
     const category = this.categories.find(c => c.name === this.selectedCategory);
-    if (!category) {
+    if (!category || category === null) {
       console.error('Category not found', category);
+      this.snackBar.open('You must select a category.', 'Chiudi', {
+        duration: 3000
+      });
       return;
     }
 

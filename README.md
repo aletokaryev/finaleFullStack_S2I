@@ -1,27 +1,38 @@
-# FinaleProva1
+# SpendWise App
+##Progetto finale S2I
+Welcome to SpendWise! This is a web application that allows you to manage your expenses efficiently. With SpendWise, you can easily track your expenses, add new expenses, and delete them as needed. This README file provides an overview of the project and instructions on how to set it up locally.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.0.
+## Features
 
-## Development server
+SpendWise comes with the following features:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- User authentication: Login and register to access the app.
+- Expense management: Add new expenses and delete existing ones.
 
-## Code scaffolding
+## Demo
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+You can check out a live demo of SpendWise by following this link: [SpendWise Demo](https://finale-full-stack-s2-i.vercel.app/) <br>
+Testing email: test@test.it<br>
+Testing password: test
 
-## Build
+## Getting Started
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+To run SpendWise on your local machine, please follow the instructions below:
 
-## Running unit tests
+1. Clone this repository to your local machine.
+2. Navigate to the project's root directory.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Setting Up the Environment
 
-## Running end-to-end tests
+Before running the project, you need to modify the environment variables. Follow these steps:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. Locate the `.env.example` file in the project's root directory.
+2. Rename the file to `.env`.
+3. Open the `.env` file and update the `DB_URI` variable with your local database URI.
 
-## Further help
+### Modifying the Server Link
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To connect the app with your local server, you need to modify the server link. Here's how:
+
+1. Locate the `environment.js` file in the project's source code.
+2. Open the file and update the server link with your local server's address.

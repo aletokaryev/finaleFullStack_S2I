@@ -11,8 +11,8 @@ SpendWise comes with the following features:
 
 ## Demo
 
-You can check out a live demo of SpendWise by following this link: [SpendWise Demo](https://finale-full-stack-s2-i.vercel.app/)
-Testing email: test@test.it
+You can check out a live demo of SpendWise by following this link: [SpendWise Demo](https://finale-full-stack-s2-i.vercel.app/) <br>
+Testing email: test@test.it<br>
 Testing password: test
 
 ## Getting Started

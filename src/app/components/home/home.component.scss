@@ -4,10 +4,10 @@
   overflow: hidden;
   z-index: 1;
   color: white;
-}
-h1{
-  font-family: 'Belanosima', sans-serif;
-  font-size: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .text{
@@ -15,6 +15,7 @@ h1{
 }
 
 .subtextOne{
+  line-height: 1.2;
   text-align: center;
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
@@ -30,16 +31,6 @@ h1{
   font-size: 20px;
   margin-bottom: 100px;
 }
-
-
-
-.hero{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 
 .btns {
   color: white;
@@ -68,9 +59,20 @@ h1{
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   object-fit: cover;
   filter: blur(10px);
   transform: scale(1.1);
+}
+@media (max-width: 480px) {
+  .hero{
+    .subtextOne{
+      line-height: 1.0;
+      font-size: 35px;
+    }
+    .subtextTwo{
+      font-size: 15px;
+    }
+  }
 }

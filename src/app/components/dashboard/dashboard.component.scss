@@ -132,3 +132,48 @@ canvas{
     font-weight: bold;
   }
 }
+
+
+@media (max-width: 480px) {
+  .header{
+    .headerTitle{
+      margin: 0;
+      margin-left: 20px;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    .logout{
+      margin-right: 20px;
+      margin-top: 20px;
+    }
+  }
+
+  .first_sec{
+    margin-top: 50px;
+    flex-direction: column;
+    .form{
+      height: 350px;
+      width: 300px;
+    }
+    canvas{
+      width: 250px;
+      height: 250px;
+    }
+  }
+  .total-expenses-card{
+    width: 100%;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+  .expenses-list-section{
+    .tableWrapper{
+      margin-left: 0px;
+      .expenses-table {
+        width: 50%;
+      }
+    }
+  }
+
+}

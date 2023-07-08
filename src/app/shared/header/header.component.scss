@@ -51,3 +51,24 @@ h1{
   color: #fff;
   border: none;
 }
+
+@media (max-width: 480px){
+  .logo{
+    margin: 0;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+  .btns{
+    margin: 0;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+  .login-btn{
+    display: block;
+    font-size: 12px;
+    margin: 15px;
+  }
+  .signup-btn{
+    font-size: 12px;
+  }
+}

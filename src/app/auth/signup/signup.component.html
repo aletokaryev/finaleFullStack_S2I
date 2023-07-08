@@ -1,0 +1,27 @@
+<div class="signUpPage">
+  <app-header></app-header>
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <form (ngSubmit)="register()">
+    <h3>Join Our Team!</h3>
+
+    <label for="fname">First Name</label>
+    <input type="text" placeholder="First name" id="fname" name="fname" [(ngModel)]="fname" required>
+
+    <label for="lname">Last Name</label>
+    <input type="text" placeholder="Last name" id="lname" name="lname" [(ngModel)]="lname" required>
+
+    <label for="email">Email</label>
+    <input type="email" placeholder="Email" id="email" name="email" [(ngModel)]="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+
+    <label for="password">Password</label>
+    <input type="password" placeholder="Password" name="password" [(ngModel)]="password" id="password" required>
+
+    <label for="confirmPassword">Confirm Password</label>
+    <input type="password" placeholder="Confirm Password" name="confirmPassword" [(ngModel)]="confirmPassword" id="confirmPassword" required>
+
+    <button mat-button type="submit">Sign Up</button>
+  </form>
+</div>

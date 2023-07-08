@@ -1,0 +1,21 @@
+<div class="loginPage">
+  <app-header></app-header>
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <form (ngSubmit)="login()">
+    <h3>Welcome back!</h3>
+
+    <label for="email">Email</label>
+    <input type="email" placeholder="Email" id="email" name="email" [(ngModel)]="email" required>
+
+    <label for="password">Password</label>
+    <input type="password" placeholder="Password" id="password" name="password" [(ngModel)]="password" required>
+
+    <button mat-button type="submit">Login</button>
+
+  </form>
+
+
+</div>

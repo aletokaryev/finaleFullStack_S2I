@@ -13,8 +13,10 @@
     <label for="password">Password</label>
     <input type="password" placeholder="Password" id="password" name="password" [(ngModel)]="password" required>
 
-    <button mat-button type="submit">Login</button>
-
+    <button mat-button type="submit" [disabled]="loading">
+      <span *ngIf="!loading">Login</span>
+      <mat-spinner diameter="24" *ngIf="loading" class="spinner"></mat-spinner>
+    </button>
   </form>
 
 

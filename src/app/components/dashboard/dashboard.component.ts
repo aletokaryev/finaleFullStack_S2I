@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   categories: any[] = [];
   selectedCategory: string = '';
   amount: number = 0;
-  description: string = 'Description goes here';
+  description: string = '';
 
   pieChart!: Chart<'pie', number[], string>;
 
@@ -73,14 +73,19 @@ export class DashboardComponent implements OnInit {
 
   addExpense() {
     // Verifica se l'amount è zero
-    if (this.amount === 0) {
-      this.snackBar.open('Amount cannot be equal to zero.', 'Chiudi', {
+    if (this.amount === 0 || this.amount < 0) {
+      this.snackBar.open('Amount cannot be equal or below zero.', 'Close', {
         duration: 3000
       });
       return;
     }
 
-
+    if (!this.description || this.description.trim() === '') {
+      this.snackBar.open('You must enter a description.', 'Close', {
+        duration: 3000
+      });
+      return;
+    }
 
     // Aggiungi una nuova spesa
     const userId = this.authService.getUserId();

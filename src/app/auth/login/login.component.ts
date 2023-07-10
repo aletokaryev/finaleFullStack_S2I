@@ -10,6 +10,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+  loading: boolean = false;
+
   email: string = '';
   password: string = '';
 
@@ -17,6 +19,8 @@ export class LoginComponent {
 
   login(): void {
     if (this.validateForm()) {
+      this.loading = true;
+
       this.authService.email = this.email;
       this.authService.password = this.password;
 
@@ -29,7 +33,9 @@ export class LoginComponent {
           console.error('Login error: ', error);
           this._snackBar.open("Login failed, " + error, "Close", { duration: 2000 });
         }
-      );
+      ).add(() => {
+        this.loading = false; // Imposta loading su false al termine
+      });
     }
   }
 

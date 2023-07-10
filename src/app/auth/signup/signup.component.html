@@ -22,6 +22,9 @@
     <label for="confirmPassword">Confirm Password</label>
     <input type="password" placeholder="Confirm Password" name="confirmPassword" [(ngModel)]="confirmPassword" id="confirmPassword" required>
 
-    <button mat-button type="submit">Sign Up</button>
+    <button mat-button type="submit" [disabled]="loading">
+      <span *ngIf="!loading">Sign Up</span>
+      <mat-spinner diameter="24" *ngIf="loading" class="spinner"></mat-spinner>
+    </button>
   </form>
 </div>

@@ -9,6 +9,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
+
+  loading: boolean = false;
+
   fname: string = '';
   lname: string = '';
   email: string = '';
@@ -20,6 +23,8 @@ export class SignupComponent {
 
   register(): void {
     if (this.validateForm()) {
+      this.loading = true;
+
       this.authService.fname = this.fname;
       this.authService.lname = this.lname;
       this.authService.email = this.email;
@@ -34,7 +39,9 @@ export class SignupComponent {
           console.error('Registration error: ', error);
           this._snackBar.open("Signup failed. " + error, "Close", { duration: 2000 });
         }
-      );
+      ).add(() => {
+        this.loading = false; // Imposta loading su false al termine
+      });
     }
   }
 

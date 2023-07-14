@@ -1,3 +1,4 @@
+// Import delle dipendenze
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,17 +15,18 @@ import { environment } from 'src/environment/environment';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
+  // URL dell'API
   API_URL = environment.API;
 
+  // Variabili per gestire le spese e le categorie
   expenses: any[] = [];
   categories: any[] = [];
   selectedCategory: string = '';
   amount: number = 0;
   description: string = '';
 
+  // Riferimento al grafico a torta
   pieChart!: Chart<'pie', number[], string>;
-
   @ViewChild('pieChart', { static: true }) pieChartRef!: ElementRef;
 
   constructor(
@@ -35,6 +37,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Inizializzazione: recupera le spese
     this.fetchExpenses();
   }
 
@@ -48,6 +51,7 @@ export class DashboardComponent implements OnInit {
         const userId = this.authService.getUserId();
         this.http.get<any[]>(`${this.API_URL}/server/expenses/${userId}`)
           .subscribe(expenses => {
+            // Mappa le spese con le categorie corrispondenti
             this.expenses = expenses.map(expense => {
               const category = this.categories.find(c => c._id === expense.categoryId);
               return { ...expense, categoryName: category ? category.name : 'Unknown Category' };
@@ -80,6 +84,7 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
+    // Verifica se è stata inserita una descrizione
     if (!this.description || this.description.trim() === '') {
       this.snackBar.open('You must enter a description.', 'Close', {
         duration: 3000
@@ -104,6 +109,7 @@ export class DashboardComponent implements OnInit {
       amount: this.amount,
       description: this.description
     }).subscribe(() => {
+      // Aggiorna le spese e ricrea il grafico
       this.fetchExpenses();
       this.createPieChart();
       this.resetForm();
@@ -116,6 +122,7 @@ export class DashboardComponent implements OnInit {
     // Cancella una spesa
     this.http.delete(`${this.API_URL}/server/expenses/${expenseId}`)
       .subscribe(() => {
+        // Aggiorna le spese
         this.fetchExpenses();
       }, error => {
         console.error('Failed to delete expense', error);
@@ -123,22 +130,25 @@ export class DashboardComponent implements OnInit {
   }
 
   resetForm() {
+    // Reimposta il form per aggiunta spesa
     this.selectedCategory = 'Other';
     this.amount = 0;
     this.description = 'Description goes here';
   }
 
   logout() {
+    // Esegui il logout e reindirizza alla pagina di login
     this.authService.logout();
     this.router.navigate(['/login']);
   }
 
   getTotalExpenses(): number {
+    // Calcola la somma totale delle spese
     return this.expenses.reduce((total, expense) => total + expense.amount, 0);
   }
 
-
   createPieChart() {
+    // Calcola i dati per il grafico a torta
     const categoryData: { [key: string]: number } = {};
 
     this.expenses.forEach(expense => {
@@ -164,6 +174,7 @@ export class DashboardComponent implements OnInit {
       this.pieChart.destroy();
     }
 
+    // Crea un nuovo grafico a torta
     this.pieChart = new Chart<'pie', number[], string>(this.pieChartRef.nativeElement, {
       type: 'pie',
       data: {

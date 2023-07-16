@@ -33,25 +33,25 @@ export class AuthService {
     return this.userId;
   }
 
-
-  register(){
+  register() {
     return this.http.post<any>(`${this.API_URL}/server/register`, { fname: this.fname, lname: this.lname, email: this.email, password: this.password })
-    .pipe(
-      map(res => {
-        this.isAuthenticated = true;
-        this.fname = '';
-        this.lname = '';
-        this.email = '';
-        this.password = '';
-        this._snackBar.open("Account created succesfully.", "Close", { duration: 2000, panelClass: 'success-snackbar' });
-        return true;
-      }),
-      catchError(error => {
-        console.error('Signup error: ', error);
-        this._snackBar.open("Signup failed, " + error.error.message.toLowerCase(), "Close", { duration: 2000, panelClass: 'error-snackbar' });
-        return of(false);
-      })
-    );
+      .pipe(
+        map(res => {
+          this.isAuthenticated = true;
+          this.fname = '';
+          this.lname = '';
+          this.email = '';
+          this.password = '';
+          this._snackBar.open("Account created succesfully.", "Close", { duration: 2000, panelClass: 'success-snackbar' });
+          return true;
+        }),
+        catchError(error => {
+          const errorMessage = error && error.error && error.error.message ? error.error.message.toLowerCase() : 'unknown error';
+          console.error('Signup error: ', errorMessage);
+          this._snackBar.open("Signup failed, " + errorMessage, "Close", { duration: 2000, panelClass: 'error-snackbar' });
+          return of(false);
+        })
+      );
   }
 
   login() {
@@ -65,15 +65,15 @@ export class AuthService {
           return true;
         }),
         catchError(error => {
-          console.error('Login error: ', error);
-          this._snackBar.open("Login failed, " + error.error.message.toLowerCase(), "Close", { duration: 2000, panelClass: 'error-snackbar' });
+          const errorMessage = error && error.error && error.error.message ? error.error.message.toLowerCase() : 'unknown error';
+          console.error('Login error: ', errorMessage);
+          this._snackBar.open("Login failed, " + errorMessage, "Close", { duration: 2000, panelClass: 'error-snackbar' });
           return of(false);
         })
       );
   }
 
   logout(): void {
-    // Esegui il logout e reimposta lo stato di autenticazione e l'ID utente
     this.isAuthenticated = false;
     this.userId = '';
   }

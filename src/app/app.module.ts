@@ -10,7 +10,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { LoginComponent } from './auth/login/login.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { HttpClient } from '@angular/common/http';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -33,7 +33,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     FormsModule,
     MatSnackBarModule
   ],
-  providers: [],
+  providers: [HttpClientModule, HttpClient],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

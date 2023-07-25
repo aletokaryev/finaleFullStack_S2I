@@ -105,7 +105,6 @@ export class AuthService {
       head_obj = new HttpHeaders().set('Authorization', this.token);
     }
     
-    console.log(this.getUserId());
     return this.http.get<any[]>(`${this.API_URL}/auth/users/${this.getUserId()}/expenses`, { headers: head_obj })
       .pipe(
         catchError(error => {

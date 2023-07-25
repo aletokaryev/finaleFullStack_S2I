@@ -9,8 +9,8 @@ const cors = require('cors')
 app.use(cors())
 
 app.use(express.json())
-app.use('/server', require('./routes/auth'))
-app.use('/server', require('./routes/expenses'))
+app.use('/api', require('./routes/auth'))
+app.use('/api', require('./routes/expenses'))
 
 mongoDBUri = process.env.DBURI;
 

@@ -1,11 +1,11 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
-const expenseController = require('../controllers/exprensesController')
+const expenseController = require('../controllers/exprensesController');
+const { authenticateToken } = require('../middleware/authMiddleware');
 
-router.get('/categories', expenseController.getCategory)
+router.get('/auth/users/:id/categories', expenseController.getCategory);
+router.get('/auth/users/:id/expenses', authenticateToken, expenseController.getUserExpenses);
+router.post('/auth/users/:id/expenses', authenticateToken, expenseController.postNewExpense);
+router.delete('/auth/users/:id/expenses/:expenseId', authenticateToken, expenseController.deleteExpense);
 
-router.get('/expenses/:userId', expenseController.getUserExpenses)
-router.post('/expenses', expenseController.postNewExpense)
-router.delete('/expenses/:expenseId', expenseController.deleteExpense)
-
-module.exports = router
+module.exports = router;

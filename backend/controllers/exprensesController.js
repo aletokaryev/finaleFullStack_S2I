@@ -1,4 +1,5 @@
-const Expense = require('../models/expenseModel');
+// controllers/expensesController.js
+const Expense = require("../models/expenseModel");
 const Category = require('../models/categoryModel');
 
 const getCategory = async (req, res) => {
@@ -12,47 +13,60 @@ const getCategory = async (req, res) => {
 
 const getUserExpenses = async (req, res) => {
   try {
-    const userId = req.params.userId;
-
-    const expenses = await Expense.find({ userId });
+    const userId = req.user;
+    const expenses = await Expense.find({ userId: userId });
     res.status(200).json(expenses);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to retrieve expenses' });
+    console.error('Error fetching user expenses:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
-}
+};
 
 const postNewExpense = async (req, res) => {
   try {
-    const { userId, categoryId, description, amount } = req.body;
+    // const userId = req.user._id;
+    const {userId, categoryId, description, amount } = req.body;
 
-    const category = await Category.findOne({ _id: categoryId });
-    if (!category) {
-      return res.status(404).json({ message: 'Category not found [server]' + category});
-    }
+    // Creazione di una nuova spesa associata all'utente corrente
+    console.log('UserID:', userId);
+    console.log('CategoryId:', categoryId);
+    console.log('Description:', description);
+    console.log('Amount:', amount);
 
-    const expense = new Expense({
+    const newExpense = new Expense({
       userId,
+      categoryId,
       description,
-      categoryId: category._id,
-      amount
+      amount,
     });
 
-    await expense.save();
+    await newExpense.save();
+
     res.status(201).json({ message: 'Expense added successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to add expense [server]', error });
+    console.error('Error adding new expense:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
-}
+};
 
 const deleteExpense = async (req, res) => {
   try {
+    const userId = req.user._id;
     const expenseId = req.params.expenseId;
 
-    await Expense.findByIdAndDelete(expenseId);
+    // Verifica se l'utente possiede questa spesa
+    const expense = await Expense.findOne({ _id: expenseId, user: userId });
+    if (!expense) {
+      return res.status(404).json({ message: 'Expense not found' });
+    }
+
+    await Expense.deleteOne({ _id: expenseId });
+
     res.status(200).json({ message: 'Expense deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to delete expense [server]', error });
+    console.error('Error deleting expense:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
-}
+};
 
-module.exports = { getCategory, getUserExpenses, postNewExpense, deleteExpense };
+module.exports = {getCategory, getUserExpenses, postNewExpense, deleteExpense };
